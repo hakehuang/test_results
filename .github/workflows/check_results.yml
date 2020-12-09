@@ -48,12 +48,15 @@ jobs:
             echo "File ${file} not allowed."
             exit 1
           fi
+          # verify matching test spec
+          # verify version
+          # etc.
+          scripts/results_verification.py -P ${file} -V 1
+          if [ $? ]; then
+            exit 1
+          fi
           if [[ ${file} == results/* ]]; then
             echo "Checking ${file}"
             ~/.local/bin/junit2html --summary-matrix ${file}
           fi
         done
-        # verify matching test spec
-        # verify version
-        # etc.
-
